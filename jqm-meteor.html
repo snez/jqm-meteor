@@ -1,0 +1,73 @@
+<head>
+  <title>jqm-meteor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="/jquery.mobile-1.1.1.css" />
+  <script src="/jquery-1.7.1.min.js"></script>
+  <script src="/jquery.mobile-1.1.1.js"></script>
+</head>
+
+<body>
+  
+  <div data-role="page" id="foo">
+
+  	<div data-role="header">
+  		<h1>Page Title</h1>
+  	</div><!-- /header -->
+
+  	<div data-role="content">	
+  		<p>{{> hello }}</p>
+      <p>{{> status }}</p>
+  		<br>
+  		{{> veggies }}
+  	</div><!-- /content -->
+
+  	<div data-role="footer">
+  		<h4>Page Footer</h4>
+  	</div><!-- /footer -->
+  </div><!-- /page -->
+
+  <!-- Start of second page -->
+  <div data-role="page" id="bar">
+
+  	<div data-role="header">
+      <a data-rel="back" data-icon="back">Back</a>
+  		<h1>Bar</h1>
+  	</div><!-- /header -->
+
+  	<div data-role="content">	
+  		{{> selectedVeggie }}
+  	</div><!-- /content -->
+
+  	<div data-role="footer">
+  		<h4>Page Footer</h4>
+  	</div><!-- /footer -->
+  </div><!-- /page -->
+
+</body>
+
+<template name="hello">
+  <h1>{{greeting}}</h1>
+</template>
+
+<template name="status">
+  Meteor status: {{#if status}}<i class="green">connected</i>{{ else }}<i class="red">disconnected</i>{{/if}}
+</template>
+
+<template name="veggies">
+  <ul data-role="listview" data-theme="c">
+    {{#each all}}
+    <li class="vegetable"><a href="#bar" data-name="{{ name }}" data-transition="slide">{{ name }} are {{#if status }}ON{{else}}OFF{{/if}}</a></li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="selectedVeggie">
+  <div>
+    {{ vegName }} 
+    
+    <select name="{{ vegName }}" id="flip" data-role="slider">
+      <option value="Off" {{#if not status }}selected{{/if}}>Off</option>
+      <option value="On" {{#if status }}selected{{/if}}>On</option>
+    </select> 
+  </div>
+</template>
